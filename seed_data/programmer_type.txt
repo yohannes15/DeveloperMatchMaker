@@ -1,0 +1,5 @@
+1|I am very impatient with bugs and will overwork to solve them 
+2|I solve nearly all my bugs through online help e.g. Stackoverflow
+3|I love solving other peoples code bugs and/or probelms.
+4|I like coders who are already experienced and won't need my help that much
+5|I like collaborating with my team memebers and solving bugs together

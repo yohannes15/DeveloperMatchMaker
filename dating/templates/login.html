@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        <p class="tagline">Find Developers <ins>at</ins> St John's&nbsp;University.</p>
+        <section class="banner">
+            <div class="wrapper">
+                <div class="blurb">
+                    <h2>Find Developers At SJU</h2>
+                    <p>Have a great idea for a project or a product and require help? Or are you trying to grow your skills through team collaboration? SJU Dev Connect is the best place for developers to find each other.</p>
+                    <a class="button" href="{{ url_for('register') }}">Create a Profile</a>
+                </div>
+            </div>
+        </section>
+        <div class="wrapper">
+            <section class="touts">
+                <section class="tout">
+                    <header>
+                        <h3>Create a Profile</h3>
+                    </header>
+                    <p>Are you a Developer? Designer? or are you just getting into computer science and software engineering. Join and you might find others in the same boat as you. Put yourself out there so that others at SJU can find you!</p>
+                    <a class="indexbutton" href="{{ url_for('register') }}">Sign Up Now</a>
+                </section>
+                <section class="tout">
+                    <header>
+                        <h3>Find a Developer At SJU to Work With</h3>
+                    </header>
+                    <p>Looking for the right-minded developer to work with on the next big thing? or looking for a developer with your skill level to collab a project with and expand your skills. Look no further.</p>
+                    <a class="indexbutton" href="{{ url_for('register') }}">Sign Up To See Developers At SJU</a>
+                </section>
+                <section class="tout">
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Log In</legend>
+                            <div class="form-group">
+                                {{ form.email.label(class="form-control-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label(class="form-control-label") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-check">
+                                {{ form.remember(class="form-check-input") }}
+                                {{ form.remember.label(class="form-check-label") }}
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-outline-info") }}
+                        </div>
+                        <small class="text-muted ml-2">
+                            <a href="#">Forgot Password?</a>
+                        </small>
+                    </form>
+
+                </section>
+            </section>
+        </div>
+        
+    </div>
+{% endblock content %}

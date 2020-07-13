@@ -1,0 +1,5 @@
+1|Relational
+2|Object-Oriented
+3|Non-relational
+4|Document
+5|Graph

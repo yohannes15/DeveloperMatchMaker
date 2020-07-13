@@ -1,0 +1,12 @@
+1|Oracle
+2|MySQL
+3|PostgreSQL
+4|MongoDB
+5|Microsoft SQL Server
+6|SQLite
+7|Neo4j
+8|Cassandra
+9|Amazon RDS
+10|MariaDB
+11|Redis
+12|ElasticSearch

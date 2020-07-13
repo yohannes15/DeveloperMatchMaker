@@ -1,0 +1,21 @@
+1|Java
+2|Python
+3|Java
+4|JavaScript
+5|C++
+6|TypeScript
+7|Rust
+8|Kotlin
+9|C#
+10|CSS&HTML
+11|Perl
+12|PHP
+13|Scala
+14|Swift
+15|SQL
+16|R Programming Language
+17|Golang (Go)
+18|Ruby
+19|Visual Basic .NET
+20|Objective-C
+21|C

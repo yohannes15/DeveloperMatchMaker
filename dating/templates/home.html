@@ -1,0 +1,212 @@
+{% extends "layout.html"%}
+
+{% block content %}
+
+<div class="container">
+  <div class="section" id="section1" style="text-align:center">
+    <h2>Developers At SJU</h2>
+  </div>
+</div>
+
+  <div class="container">
+    <div class="grid">
+    {% for user in users_stack %}
+    <div style="margin-bottom: 10px" id="flip-container">
+      <div class="flipper">
+        <div class="front">
+          <img class="profile-picture" src="static/profilepics/{{user.image_file}}" width="250px" height="250px">
+          <div class="profile-devider"></div>
+          <h3 class="profile-name">{{user.firstname}} {{user.lastname}}</h3>
+            {% for interest in interests %}
+              {% if user.id == interest.user_id %}
+                <ul class="tags">
+                  {% for proglang in all_interests[0] %}
+                    {% if proglang[0] == interest.fav_programming_lang_id %}
+                    <div class="programming-lang" data-lang={{proglang[1]}}>
+                      <li><a href="#">{{proglang[1]}}</a></li>
+                    </div>
+                    {% endif %}
+                  {% endfor %}
+                  {% for proglang in all_interests[4] %}
+                    {% if proglang[0] == interest.second_fav_lang_id %}
+                    <li><a href="#">{{proglang[1]}}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% for proglang in all_interests[3] %}
+                    {% if proglang[0] == interest.experience_id %}
+                    <div class="field-interest" data-interest={{proglang[1]}}>
+                      <li><a href="#">{{proglang[1]}}</a></li>
+                    </div>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endfor %}
+        </div>
+        <div class="back">
+          <div class="flip-padding">
+            <div>
+              {% for interest in interests %}
+                {% if user.id == interest.user_id %}
+                    {% for proglang in all_interests[0] %}
+                      {% if proglang[0] == interest.fav_programming_lang_id %}
+                      <h5>Primary Language</h3>
+                      <p>{{proglang[1]}}</p>
+                      {% endif %}
+                    {% endfor %}
+                    {% for proglang in all_interests[4] %}
+                      {% if proglang[0] == interest.second_fav_lang_id %}
+                      <h5>Secondary Language</h3>
+                      <p>{{proglang[1]}}</li>
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% for proglang in all_interests[3] %}
+                      {% if proglang[0] == interest.experience_id %}
+                      <h5>Years of Experience</h3>
+                      <p>{{proglang[1]}}</li>
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% for proglang in all_interests[1] %}
+                      {% if proglang[0] == interest.fav_database_system_id %}
+                      <h5>Database System</h3>
+                      <p>{{proglang[1]}}</li>
+                      {% endif %}
+                    {% endfor %}
+                    <a href="{{ url_for('profile', user=user.username) }}"><button style="margin-top: 20px; font-size: 22px;"class="follow-button" >Visit Profile</button></a>
+                {% endif %}
+              {% endfor %}
+              
+            </div>
+            <div></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+
+</div>
+</div>
+
+  {% endblock %}
+
+  <!-- <div class="container">
+    <div class="profiles">
+      <div class="row">
+      {% for user in users_stack_based_on_zipcode %}
+          <div class="card">
+            <article class="profile">
+              <figure>
+                <img src="http://placehold.it/280" alt="Some Person">
+                <figcaption>{{user.firstname}} {{user.lastname}}</figcaption>
+              </figure>
+              <ul class="tags">
+                <li><a href="#">HTML</a></li>
+                <li><a href="#">CSS</a></li>
+                <li><a href="#">JS</a></li>
+              </ul>
+              <a class="button" href="#">Contact</a>
+            </article>
+          </div>
+      {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div> -->
+
+
+  
+  
+<!--
+  <div class="stage">
+    <div id="stacked-cards-block" class="stackedcards stackedcards--animatable init">
+      <div class="stackedcards-container">
+        {% for user in users_stack_based_on_zipcode %}
+        <div class="card">
+          <div class="card-content">
+            <div class="card-image"><img src="static/profilepics/{{user.image_file}}" width="50%" height="50%"/></div>
+          </div>
+          <div class="card-footer">
+            <div class="popular-destinations-text"><a class="ml-2" href="{{ url_for('profile', user=user.username) }}">{{user.firstname}} {{user.lastname}}</a>, {{user.zipcode}}</div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+      <div class="stackedcards--animatable stackedcards-overlay top">
+        <img src="https://image.ibb.co/m1ykYS/rank_army_star_2_3x.png"  width="auto" height="auto"/>
+      </div>
+      <div class="stackedcards--animatable stackedcards-overlay right">
+        <img src="https://image.ibb.co/dCuESn/Path_3x.png" width="auto" height="auto"/>
+      </div>
+      <div class="stackedcards--animatable stackedcards-overlay left">
+        <img src="https://image.ibb.co/heTxf7/20_status_close_3x.png" width="auto" height="auto"/>
+      </div>
+
+    </div>
+    <div class="global-actions">
+      <div class="left-action"><img src="static/left.png" width="26" height="26"/></div>
+      <div class="right-action"><img src="static/right.png" width="30" height="28"/></div>
+    </div>
+</div>
+-->
+
+
+<!-- <div class="container-fluid">
+  <div class="gallery-filters">
+  <label class="gallery-filters__filter" for="programming-lang-filter">
+    <span>
+      Programming Language
+    </span>
+    <select name="programming-lang-filter" id="programming-lang-filter">
+      {% for interests in all_interests[0] %}
+        <option value={{interests[1]}}>{{interests[1]}}</option>
+      {% endfor %}
+  </select>
+  </label>
+  
+  
+  <label class="gallery-filters__filter" for="database-filter">
+    <span>
+      Database Knowledge
+    </span>
+    <select name="database-filter" id="database-filter">
+      {% for interests in all_interests[1] %}
+      <option value={{interests[1]}}>{{interests[1]}}</option>
+      {% endfor %}
+  </select>
+  </label>
+
+  <label class="gallery-filters__filter" for="interest-filter">
+    <span>
+      Field of Interest
+    </span>
+    <select name="interest-filter" id="interest-filter">
+      {% for interests in all_interests[2] %}
+      <option value={{interests[1]}}>{{interests[1]}}</option>
+      {% endfor %}
+  </select>
+  </label>
+
+   <label class="gallery-filters__filter" for="experience-filter">
+    <span>
+      Experience Level
+    </span>
+    <select name="experience-filter" id="experience-filter">
+      {% for interests in all_interests[3] %}
+      <option value={{interests[1]}}>{{interests[1]}}</option>
+      {% endfor %}
+  </select>
+  </label>
+  
+</div>
+
+</div> -->
+
