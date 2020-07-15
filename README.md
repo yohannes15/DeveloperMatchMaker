@@ -10,4 +10,8 @@ After they have registered, they have a view of all aspiring developers at SJU.
 
 Developers/Users can 
 
-* view each other's profile to see if they are fit for eachother, or have the qualities they are looking for. 
+* View other developers profile to see if they are fit for eachother, or have the qualities they are looking for. 
+* Private Message other developers for questions, collaboration in projects, and in general, just to communicate with each other.
+* Edit their profile and account any time.
+
+Dev-Connect was created to encourage entrepreneurship and development of programming skills through real word projects built with other students that have similar or varied skills at St John's University. The number of computer science students at SJU isn't that high compared to other majors. This project had the sole goal of connecting developers together at a campus with not many developers.
