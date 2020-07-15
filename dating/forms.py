@@ -3,6 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from dating.models import *
+from flask_babel import lazy_gettext as _l
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min = 2, max = 20)])
@@ -37,5 +38,5 @@ class EditProfileForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class MessageForm(FlaskForm):
-    message = TextAreaField('Message', validators=[DataRequired(), Length(min=0, max=250)])
-    submit = SubmitField('Submit')
+    message = TextAreaField(_l('Message'), validators=[DataRequired(), Length(min=0, max=250)])
+    submit = SubmitField(_l('Submit'))

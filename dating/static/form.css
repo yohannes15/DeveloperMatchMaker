@@ -1,0 +1,16 @@
+.form-horizontal {
+    float: left;
+    max-width: 700px;
+    font-family: 'Lato';
+    font-weight: 400;
+  }
+  
+   .form-control, textarea {
+    max-width: 700px;
+    background-color: whitesmoke;
+    color:black;
+    letter-spacing: 1px;
+    width: 700px;
+    margin-left: -11px;
+    height: 200px;
+  }

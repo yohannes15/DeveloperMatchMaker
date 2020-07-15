@@ -9,6 +9,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 from dating.queries import *
 from dating.matcher import *
 import datetime
+from flask_babel import lazy_gettext as _l
+
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -223,13 +225,13 @@ def edit_interests():
     all_programmer_types(),all_experience_level()]
 
     user_id = current_user.id
-    fav_lang_id = request.form.get("Favorite programming languages")
-    second_lang_id = request.form.get("Second favourite programming language")
-    database_knowledge_id = request.form.get("Database knowledge")
-    fav_database_system_id = request.form.get('Favorite database systems')
-    field_interest_id = request.form.get('Field interests')
-    programmer_type_id = request.form.get('Programmer types')
-    experience_id = request.form.get('Experience levels')
+    fav_lang_id = request.form.get("Your Favorite Programming Language")
+    second_lang_id = request.form.get("Second Favourite Programming Language")
+    database_knowledge_id = request.form.get("Choose Your Speciality Database Knowledge")
+    fav_database_system_id = request.form.get('Favorite Database Management System')
+    field_interest_id = request.form.get('Your Field Of Interest')
+    programmer_type_id = request.form.get('Which Statement Below Describes You Most Accurately')
+    experience_id = request.form.get('What is Your Experience Level')
 
     user_interest = Interest.query.filter_by(interest_id=user_id).first()
 
@@ -442,7 +444,8 @@ def send_message(recipient):
         user.add_notification('unread_message_count', user.new_messages())
         db.session.commit()
         flash('Your message has been sent.')
-        return redirect(url_for('show_potential_matches', username=recipient))
+        
+        return redirect(url_for('profile', user=recipient.username))
     return render_template('send_message.html', title='Send Message',
                            form=form, recipient=recipient)
 
@@ -456,6 +459,7 @@ def messages():
     messages = current_user.messages_received.order_by(
         Message.timestamp.desc()).paginate(
             page, current_app.config['POSTS_PER_PAGE'], False)
+    
     next_url = url_for('messages', page=messages.next_num) \
         if messages.has_next else None
     prev_url = url_for('messages', page=messages.prev_num) \

@@ -2,38 +2,53 @@
   <html>
   <head>
       <title>Find True Love</title>
-        <meta charset="utf-8">
-          <meta name="viewport" content="width=device=width, initial-scale=1">
-            <script src="https://code.jquery.com/jquery.js"></script>
-              <link rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-                <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
-
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='reset.css')}}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   </head>
   <body>
+  <header id="page-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="/">Developers Connect</a>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="/">Home</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+              <a class="nav-item nav-link" href="{{ url_for('messages') }}">Messages
+                {% set new_messages = current_user.new_messages() %}
+                <span id="message_count" class="badge"
+                      style="visibility: {% if new_messages %}visible
+                                         {% else %}hidden {% endif %};">
+                    {{ new_messages }}
+                </span>
+              </a>
+              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
 
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-            <button type="button" class="btn btn-default" id="home">
-              <li><a href="/">Home</a></li>
-            </button>
-            {% if session["user_id"] %}
-              <button type="button" class="btn btn-default" id="logout">
-                <li><a href="/logout">Log out</a></li>
-              </button>
-            {% else %}
-              <button type="button" class="btn btn-default" id="login">
-                <li><a href="/login">Log in</a></li>
-              </button>
-              <button type="button" class="btn btn-default" id="register">
-                <li><a href="/register">Sign up</a></li>
-              </button>
+
+              {% else %}
+              <a class="nav-item nav-link" href="/login">Login</a>
+              <a class="nav-item nav-link" href="/register">Register</a>
             {% endif %}
-          </ul>
+          </div>
+        </div>
       </div>
-    </nav> <!-- end nav -->
+    </nav>
+  </header>
+
         {% block content %}
           put your content here
         {% endblock %}

@@ -28,8 +28,8 @@ h1, h2, h3, h4, h5, h6 {
 img{
   display: block;
   margin: auto;
-  width: 50%;
-  height: 50%
+  width: 75%;
+  height: 75%
 }
 
 .navbar-brand {
@@ -162,6 +162,22 @@ h3 {
 p {
 	margin: 0 0 1.5em 0;
 }
+
+#buttonz {
+  background-color: tomato;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 14px 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  transition: 0.25s;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 20px;
+  color:white;
+}
+
+
 
 button {
   margin: 5px;
@@ -344,12 +360,12 @@ footer {
   position: absolute;
   top: 0;
   left: 0;
-  border: 1px solid #ccc;
 }
 
 .front {
   z-index: 1;
   background: #fff;
+  
 }
 
 #flip-container, .front, .back {
@@ -380,7 +396,7 @@ footer {
 }
 
 .profile-picture {
-  width: 250px;
+  width: 249px;
   height: 250px;
 }
 
@@ -426,3 +442,251 @@ footer {
 /*------------------------------------------------------
 --------------------------------------------------------
 */
+.button-area {
+  display: flex;
+  justify-content: center;
+}
+a.button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 14px 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  transition: 0.25s;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 24px;
+}
+
+
+/*------------------------------------------------------
+--------------------------------------------------------
+*/
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+/* css class for the edit profile generated errors */
+
+#sc-edprofile {
+  background: #f0f0f0;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 8px;
+  margin-bottom: 2%;
+  transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+}
+
+#sc-edprofile h1 {
+  background:black;
+  padding: 20px 0;
+  font-size: 140%;
+  font-weight: 300;
+  text-align: center;
+  color: #fff;
+}
+
+div#sc-edprofile .sc-container {
+  background: #f0f0f0;
+  padding: 6% 4%;
+}
+
+div#sc-edprofile input[type="email"],
+div#sc-edprofile input[type="text"],
+div#sc-edprofile input[type="password"], div#sc-edprofile select, div#sc-edprofile textarea {
+  width: 92%;
+  background: #fff;
+  margin-bottom: 4%;
+  border: 1px solid #ccc;
+  padding: 4%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 95%;
+  color: #555;
+}
+
+div#sc-edprofile select {
+  width: 100%;
+}
+
+div#sc-edprofile textarea {
+  height: 100px;
+}
+
+div#sc-edprofile input[type="submit"] {
+  width: 100%;
+  background: mediumvioletred;
+  border: 0;
+  padding: 4%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+  color: #fff;
+  cursor: pointer;
+  transition: background .3s;
+  -webkit-transition: background .3s;
+}
+
+div#sc-edprofile input[type="submit"]:hover {
+  background: #2288bb;
+}
+
+/*------------------------------------------------------
+--------------------------------------------------------
+*/
+
+
+#contact {
+  width: 100%;
+  height: 100vh;
+  background-color: whitesmoke;
+  overflow: hidden;
+  padding-bottom: 200px;
+}
+
+.section-header {
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 50px;
+  margin-bottom: 50px;
+  font: 300 60px 'Oswald', sans-serif;
+  letter-spacing: 6px;
+  color:black;
+  margin-bottom: 25px;
+}
+
+.contact-wrapper {
+  margin: 0 auto;
+  padding-top: 20px;
+  position: relative;
+  max-width: 800px;
+}
+/* 
+.form-horizontal {
+  float: left;
+  max-width: 700px;
+  font-family: 'Lato';
+  font-weight: 400;
+}
+
+ .form-control, textarea {
+  max-width: 700px;
+  background-color: whitesmoke;
+  color:black;
+  letter-spacing: 1px;
+  width: 700px;
+  margin-left: -11px;
+  height: 200px;
+} */
+
+.send-button {
+  margin-top: 15px;
+  height: 34px;
+  width: 400px;
+  overflow: hidden;
+  transition: all .2s ease-in-out;
+}
+
+/* .button {
+  width: 400px;
+  height: 34px;
+  transition: all .2s ease-in-out;
+} */
+
+.send-text {
+  display: block;
+  margin-top: 10px;
+  font: 300 14px 'Lato', sans-serif;
+  letter-spacing: 2px;
+}
+
+.button:hover {
+  transform: translate3d(0px, -29px, 0px);
+}
+
+/* Begin Right Contact Page */
+
+.contact-text a {
+  color: #bbb;
+  text-decoration: none;
+  transition-duration: 0.2s;
+}
+
+.contact-text a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/* Begin Media Queries*/
+@media screen and (max-width: 760px) {
+    #contact {
+        height: 1000px;
+    }
+  .section-header {
+    font-size: 65px;
+  }
+  .direct-contact-container, .form-horizontal {
+    float: none;
+    margin: 10px auto;
+  }  
+  .direct-contact-container {
+    margin-top: 60px;
+    max-width: 300px;
+  }    
+  .social-media-list li {
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+  }
+  .social-media-list li:after {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+  }
+}
+
+@media screen and (max-width: 569px) {
+  #contact {
+    height: 1200px;
+    }
+  .section-header{
+    font-size: 50px;
+  }
+  .direct-contact-container, .form-wrapper {
+    float: none;
+    margin: 0 auto;
+  }  
+  .form-control, textarea {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  
+  .name, .email, textarea {
+    width: 280px;
+  } 
+  .direct-contact-container {
+    margin-top: 60px;
+    max-width: 280px;
+  }  
+  .social-media-list {
+    left: 0;
+  }
+  .social-media-list li {
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    font-size: 2rem;
+  }
+  .social-media-list li:after {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+  }
+  
+}
+
+@media screen and (max-width: 410px) {
+  .send-button {
+    width: 99%;
+  }
+}

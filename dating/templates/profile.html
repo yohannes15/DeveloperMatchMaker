@@ -66,6 +66,19 @@
 			</div>
     </div>
   </article>
+
+
+  {% if user != current_user %}
+  <div style="text-align: center;">
+  <form action="/send_message/{{user}}" method="POST">
+    <button id="buttonz" name="send_message" type="submit" style="text-align: center">
+      Send A Quick Message
+    </button>
+  </form>
+</div>
+{% endif %}
+
+
   
 </div>
 <!-- 

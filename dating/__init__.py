@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 #from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from config import Config   #from config module, import config class
+from flask_babel import Babel, lazy_gettext as _l
 
 
 
@@ -19,6 +20,8 @@ db = SQLAlchemy(app) #db object that represents the database.
 bcrypt = Bcrypt(app) #password hashing function
 login = LoginManager(app) #initializes the flask-login extension
 migrate = Migrate(app, db) #object that represents the migration engine.
+babel = Babel(app)
+
 
 
 #bootstrap = Bootstrap()
