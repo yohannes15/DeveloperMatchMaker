@@ -15,3 +15,5 @@ Developers/Users can
 * Edit their profile and account any time.
 
 Dev-Connect was created to encourage entrepreneurship and development of programming skills through real word projects built with other students that have similar or varied skills at St John's University. The number of computer science students at SJU isn't that high compared to other majors. This project had the sole goal of connecting developers together at a campus with not many developers.
+
+This project was developed using Python, Flask, SQLite and JS.
