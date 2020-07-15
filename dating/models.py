@@ -231,57 +231,6 @@ class ExperienceLevel(db.Model):
         return'<experience_id={}, experience_name={}>'.format(self.experience_id,
                                                             self.experience_name)
 
-class UserMatch(db.Model):
-    """holds matches made through the history of the app"""
-
-    __tablename__ = "user_matches"
-
-    match_id = db.Column(db.Integer, autoincrement=True,
-                        primary_key=True)
-    user_id_1 = db.Column(db.Integer,
-                        db.ForeignKey('users.id'),
-                        nullable=False)
-    user_id_2 = db.Column(db.Integer,
-                        db.ForeignKey('users.id'),
-                        nullable=False)
-    match_date = db.Column(db.DateTime, nullable=False)
-    user_2_status = db.Column(db.Boolean, nullable=False)
-    query_pincode = db.Column(db.String(20), nullable=False)
-
-    def __repr__ (self):
-        """return interest choices of the user"""
-
-        d1 = '< match_id={a}, user_id_1={b},'.format(a=self.match_id,
-                                                    b=self.user_id_1)
-        d2 =' user_id_2={c}, match_date={d}>'.format(c=self.user_id_2,
-                                                    d=self.match_date)
-
-        return d1 + d2
-
-
-class PendingMatch(db.Model):
-    """holds a list of all pending matches for user queries"""
-
-    __tablename__ = "pending_matches"
-
-    user_query_id = db.Column(db.Integer, autoincrement=True,
-                            primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),
-                            nullable=False)
-    query_pin_code = db.Column(db.Integer, nullable=False)
-    query_time = db.Column(db.DateTime, nullable=False)
-    pending = db.Column(db.Boolean, nullable=False)
-
-    def __repr__ (self):
-        """return information about a user query"""
-
-        d1 = "<user_query_id={a}, user_id={b},".format(a=self.user_query_id,
-                                                        b=self.user_id)
-        d2 = " query_pin_code={c}, query_time={d},".format(c=self.query_pin_code,
-                                                        d=self.query_time)
-        d3 = " pending={e}>".format(e=self.pending)
-
-        return d1 + d2 + d3
 
 class Message(db.Model):
 

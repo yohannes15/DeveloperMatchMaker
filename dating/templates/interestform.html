@@ -5,7 +5,7 @@
       font-size: 12px;
       color: #FFF;
       padding: 12px 18px;
-      background: #b70101;
+      background: #7f6681;
     }
     </style>
     <div class="container">
@@ -19,7 +19,7 @@
               </div>
                 {% for sub_interest in all_interests %}
                   <h4>{{sub_interest[0]}}</h4>
-                  <div class="btn-group"  data-toggle="buttons">
+                  <div class="btn-group" style="display:-webkit-inline-box" data-toggle="buttons">
                     {% for interest in sub_interest[1] %}
                       <label class="btn btn-reg btn-sm">
                         <input type="radio" name="{{sub_interest[0]}}" id="{{interest[1]}}" value="{{interest[0]}}" required>

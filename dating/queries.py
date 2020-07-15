@@ -50,36 +50,14 @@ def get_user_info(input_id):
             fname, lname, profile_picture]
 
 
-def get_all_made_matches(user_id):
-    """ Queries the user_matches table and accepts a userid as input.
-        INPUT FORMAT = Integer.
-        Returns a list of tuples with the first element as the user name
-        and the second element as the url to the profile picture.
-        OUTPUT FORMAT = list of tuples of strings.
-    """
-    # query the user_matches table
-    check_matches = UserMatch.query.filter(UserMatch.user_id_1 == user_id,
-                                         UserMatch.user_2_status == True)
+# def validate_password(input_email, input_password):
+#     """ Queries the users table and accepts email and password as inputs for validation"""
 
-    matches = check_matches.all()
-    all_match_info = []
+#     user = User.query.filter(User.email == '{}'.format(input_email)).first()
+#     password = user.password
+#     email = user.email
 
-    for match in matches:
-        user_id2 = match.user_id_2
-        user_info = get_user_info(user_id2)
-        user_name = user_info[6] + " " + user_info[7]
-        all_match_info.append(user_name, user_info[-1])
-
-    return all_match_info
-
-def validate_password(input_email, input_password):
-    """ Queries the users table and accepts email and password as inputs for validation"""
-
-    user = User.query.filter(User.email == '{}'.format(input_email)).first()
-    password = user.password
-    email = user.email
-
-    return password == input_password and email == input_email
+#     return password == input_password and email == input_email
 
 def get_max_id(input_table_id):
     """ Queries a given table.
@@ -240,26 +218,3 @@ def get_user_match(user_id):
     fil = q1.filter(UserMatch.user_id_2 == 339, UserMatch.user_2_status == False).all()
 
 
-
-def find_valid_matches(user_id_1, pincode, query_time):
-    """ Queries the pending_match for pending matches.
-        returns a list of pending match user user_ids.
-    """
-    potential_matches = []
-    # creates an object from the input date string
-
-    # finding matches for the same query time
-    query_time_obj = datetime.datetime.strptime(query_time, "%Y-%m-%d %H:%M:%S")
-
-    # check for all pending_matches
-    match_q = PendingMatch.query.filter(PendingMatch.query_pin_code == pincode,
-                                        func.date(PendingMatch.query_time) == query_time_obj.date(),
-                                        PendingMatch.pending == True)
-
-    users = match_q.all()
-
-    for i in users:
-        user_id = i.user_id
-        potential_matches.append(user_id)
-
-    return potential_matches
