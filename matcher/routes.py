@@ -2,11 +2,11 @@ import os
 import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, current_app, jsonify
-from dating import app, db, bcrypt
-from dating.forms import RegistrationForm, LoginForm, EditProfileForm, MessageForm
-from dating.models import *
+from matcher import app, db, bcrypt
+from matcher.forms import RegistrationForm, LoginForm, EditProfileForm, MessageForm
+from matcher.models import *
 from flask_login import login_user, current_user, logout_user, login_required
-from dating.queries import *
+from matcher.queries import *
 import datetime
 from flask_babel import lazy_gettext as _l
 

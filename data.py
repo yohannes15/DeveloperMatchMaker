@@ -1,7 +1,7 @@
 """file to seed data from generated data in seed_data into sqlite database"""
 from sqlalchemy import func
 from flask_sqlalchemy import SQLAlchemy
-from dating.models import *
+from matcher.models import *
 from random import choice
 import datetime
 from dating import bcrypt

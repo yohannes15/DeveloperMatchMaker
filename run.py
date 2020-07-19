@@ -1,4 +1,4 @@
-from dating import app
+from matcher import app
 from flask_table import Table, Col, LinkCol
 from flask_babel import Babel
 
