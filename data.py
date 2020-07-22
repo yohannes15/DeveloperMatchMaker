@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from matcher.models import *
 from random import choice
 import datetime
-from dating import bcrypt
+from matcher import bcrypt
 #import pdb; pdb.set_trace()
 
 def load_users():
