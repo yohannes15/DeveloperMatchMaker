@@ -1,0 +1,12 @@
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    max-width: 100%;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  label {
+      display: inline
+  }

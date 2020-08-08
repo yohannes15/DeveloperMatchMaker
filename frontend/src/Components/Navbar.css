@@ -1,0 +1,23 @@
+.navbar-brand {
+    padding: 0px;
+  }
+.navbar-brand>img {
+    height: 100%;
+    padding: 15px;
+    width: auto;
+}
+
+.navbar-primary {
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    border-bottom: 2px solid rgba(221, 221, 221, 0.82);
+    border-top: 3px solid #3e476d;
+    text-transform: uppercase;
+    color: #6d6d6d!important;
+}
+.navbar-primary a {
+    color: #6d6d6d!important;
+}
+
+.bg-steel {
+    background-color:black
+}
