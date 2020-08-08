@@ -1,5 +1,7 @@
 # Developer Connect
 
+# This same project using React is available under my other branch. If you are interested in that check that out. It works the same. This branch uses Flask's template engine Jinja2 and render_template.
+
 Are you a student at SJU? Do you have a great idea for a project or a product and require help? 
 
 Or are you trying to grow your skills through project collaboration? SJU Dev Connect is the best place for developers to find each other.
