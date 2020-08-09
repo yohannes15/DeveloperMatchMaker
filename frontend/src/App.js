@@ -3,7 +3,9 @@ import Navbar from './Components/Navbar'
 import Homeboard from './Components/Homeboard'
 import Loginform from './Components/Loginform'
 import RegisterForm from './Components/RegisterForm'
+import InterestForm from './Components/InterestForm'
 import Home from './Components/Home'
+
 import {check} from './Components/util/login'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './App.css'
@@ -20,6 +22,7 @@ export class App extends Component {
       <div>
         <Navbar />
         <Router >
+          
             <Route exact path='/register' render={props =>
             <Fragment>
               <RegisterForm requestType='post'/>
@@ -38,6 +41,13 @@ export class App extends Component {
             </Fragment>
             
             } />
+
+            <Route exact path='/add_interests' render={props => 
+              <Fragment>
+                <InterestForm requestType='post'/>
+              </Fragment>
+            
+            }/>
 
 
 

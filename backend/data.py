@@ -176,7 +176,7 @@ def load_experience_level():
 
 if __name__ == "__main__":
     from flask import Flask
-    from dating import app
+    from matcher import app
     SQLAlchemy(app)
 
     # Import different types of data

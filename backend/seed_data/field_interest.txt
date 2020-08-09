@@ -1,0 +1,10 @@
+1|Web Development
+2|Mobile Application Development
+3|Artifical Intelligence
+4|Data Analytics
+5|Networking
+6|Computer Architecture
+7|Computer Science Theory
+8|Computer Security
+9|Databases
+10|System Design and Analysis

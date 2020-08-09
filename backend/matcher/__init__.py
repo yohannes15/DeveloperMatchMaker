@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 #from flask_bootstrap import Bootstrap
@@ -21,6 +22,7 @@ CORS(app)
 JWTManager(app)
 
 db = SQLAlchemy(app) #db object that represents the database.
+ma = Marshmallow(app)
 bcrypt = Bcrypt(app) #password hashing function
 login = LoginManager(app) #initializes the flask-login extension
 migrate = Migrate(app, db) #object that represents the migration engine.

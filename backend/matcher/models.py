@@ -1,4 +1,4 @@
-from matcher import db, login
+from matcher import db, login, ma
 from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -100,7 +100,6 @@ class Interest(db.Model):
 
         return d1 + d2 + d3 + d4 
 
-
 class FavProgrammingLang(db.Model):
     """"""
 
@@ -118,7 +117,6 @@ class FavProgrammingLang(db.Model):
 
         return'<fav_lang_id={}, fav_lang_name={}>'.format(self.fav_lang_id,
                                                             self.fav_lang_name)
-
 
 class SecondFavProgrammingLang(db.Model):
     """"""
@@ -177,6 +175,7 @@ class FavDatabaseSystem(db.Model):
                                                                 self.fav_database_system_name)
 
 
+
 class FieldInterest(db.Model):
 
     __tablename__ = 'field_interest'
@@ -193,7 +192,6 @@ class FieldInterest(db.Model):
 
         return'<field_interest_id={}, field_interest_name={}>'.format(self.field_interest_id,
                                                     self.field_interest_name)
-
 
 
 class ProgrammerType(db.Model):
@@ -244,6 +242,7 @@ class Message(db.Model):
     def __repr__(self):
         return '<Message {}>'.format(self.body)
 
+
 class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True)
@@ -253,3 +252,51 @@ class Notification(db.Model):
 
     def get_data(self):
         return json.loads(str(self.payload_json))
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+
+class InterestSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Interest
+        include_fk = True
+
+class FavProgrammingLangSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = FavProgrammingLang
+
+class SecondFavProgrammingLangSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = SecondFavProgrammingLang
+
+class DatabaseKnowledgeSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = DatabaseKnowledge
+
+class FavDatabaseSystemSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = FavDatabaseSystem
+
+class FieldInterestSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = FieldInterest
+
+class ProgrammerTypeSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = ProgrammerType
+
+
+class ExperienceLevelSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = ExperienceLevel
+
+class MessageSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Message
+        include_fk = True
+
+class NotificationSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Notification
+        include_fk = True

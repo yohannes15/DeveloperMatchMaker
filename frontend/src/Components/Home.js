@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Axios from 'axios'
+import {check} from './util/login'
 import './Home.css'
 
 const alignCenter = {
@@ -10,6 +12,19 @@ const marginBottom = {
 }
 
 export class Home extends Component {
+
+    componentDidMount() {
+        // check if current user has registered
+        if (check()){
+            Axios.get("http://localhost:5000/api/hasinterests").then(res => {
+                if (res.data.error) {
+                    window.location = '/add_interests'
+                }
+            })
+        }
+
+    }
+
     render() {
         return (
             <div>
