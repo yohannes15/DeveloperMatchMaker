@@ -74,11 +74,11 @@ def all_fav_programming_lang():
     programming_langs = FavProgrammingLang.query.all()
     
     json_fav_lang = fav_prog_lang_schema.dumps(programming_langs)
+    json_fav_lang = json.loads(json_fav_lang)
 
-    # for lang in programming_langs:
-    #     fav_programming_lang.append((lang.fav_lang_id, lang.fav_lang_name))
+    fav_programming_lang = []
 
-    return ["Your Favorite Programming Language", json_fav_lang]
+    return ["Your Favorite Programming Language", json_fav_lang, 'fav_lang_']
 
 
 def all_second_fav_lang():
@@ -89,8 +89,9 @@ def all_second_fav_lang():
     programming_langs = SecondFavProgrammingLang.query.all()
     
     json_second_fav_lang = second_fav_prog_lang_schema.dumps(programming_langs)
+    json_second_fav_lang = json.loads(json_second_fav_lang)
 
-    return ["Second Favourite Programming Language", json_second_fav_lang]
+    return ["Second Favourite Programming Language", json_second_fav_lang, 'fav_lang_']
 
 
 def all_database_knowledge():
@@ -101,8 +102,9 @@ def all_database_knowledge():
     databases = DatabaseKnowledge.query.all()
     
     json_databases = database_schema.dumps(databases)
+    json_databases = json.loads(json_databases)
 
-    return ["Choose Your Speciality Database Knowledge", json_databases]
+    return ["Choose Your Speciality Database Knowledge", json_databases, "database_knowledge_"]
 
 def all_fav_database_systems():
     """ Queries the fav_database_system table. Returns a list of tuples, first element is the fav_database_system id and second
@@ -112,8 +114,9 @@ def all_fav_database_systems():
     database_systems = FavDatabaseSystem.query.all()
 
     json_db_systems = database_systems_schema.dumps(database_systems)
+    json_db_systems = json.loads(json_db_systems)
 
-    return ["Favorite Database Management System", json_db_systems]
+    return ["Favorite Database Management System", json_db_systems, "fav_database_system_"]
 
 
 def all_field_interests():
@@ -124,7 +127,9 @@ def all_field_interests():
     field_interests = FieldInterest.query.all()
     json_fields = field_interest_schema.dumps(field_interests)
 
-    return ["Your Field Of Interest", json_fields]
+    json_fields = json.loads(json_fields)
+
+    return ["Your Field Of Interest", json_fields, "field_interest_"]
 
 def all_programmer_types():
     """ Queries the programmer_type table. Returns a list of tuples, first element is the programmer_type id and second
@@ -134,7 +139,9 @@ def all_programmer_types():
     types = ProgrammerType.query.all()
     json_types = programmer_schema.dumps(types)
 
-    return ["Which Statement Below Describes You Most Accurately", json_types]
+    json_types = json.loads(json_types)
+
+    return ["Which Statement Below Describes You Most Accurately", json_types, "programmer_type_"]
 
 
 def all_experience_level():
@@ -145,7 +152,9 @@ def all_experience_level():
     exp_levels = ExperienceLevel.query.all()
     json_exp_levels = exp_level_schema.dumps(exp_levels)
 
-    return ["What is Your Experience Level", json_exp_levels]
+    json_exp_levels = json.loads(json_exp_levels)
+
+    return ["What is Your Experience Level", json_exp_levels, "experience_"]
 
 def get_user_interests(user_id):
     """ Queries the interests table and accepts a userid as input.

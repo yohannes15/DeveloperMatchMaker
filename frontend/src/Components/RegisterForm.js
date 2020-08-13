@@ -38,7 +38,7 @@ export class RegisterForm extends Component {
         const confirmpassword = event.target.elements.confirmpassword.value
         const dateofbirth = event.target.elements.dateofbirth.value
 
-        if (password != confirmpassword){
+        if (password !== confirmpassword){
             this.setState({err: "Passwords don't match"})
         }
         else{

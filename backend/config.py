@@ -11,3 +11,8 @@ class Config(object):
     #configure a database named app.db located in the main directory of the application, which is stored in the basedir variable.
     SQLALCHEMY_TRACK_MODIFICATIONS = False  #not signaling application when there are changes in the database
     POSTS_PER_PAGE = 5
+    JWT_SECRET_KEY = "NEVERWANNAGIVEYOUUP"
+    JWT_BLACKLIST_ENABLED = True
+    JWT_BLACKLIST_TOKEN_CHECKS = ["access", "refresh"]
+    JWT_HEADER_TYPE = None
+

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Alert from './Alert'
 import axios from "axios";
-import {login} from './util/login'
+
+import {login, check} from './util/login'
 import './Loginform.css'
 
 
@@ -17,6 +18,15 @@ export class Loginform extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+
+    // componentDidMount(){
+    //     check().then(r => {
+    //         console.log("r", r)
+    //         if (r) {
+    //             window.location = '/'
+    //         }
+    //     })
+    // }
 
     handleChange = (event) => {
         const target = event.target
@@ -35,8 +45,7 @@ export class Loginform extends Component {
             login(email, password).then(
                 res => {
                     if (res === true){
-                        window.location = '/home'
-                        console.log(this.state.login)
+                        window.location = '/'
                     }
                     else{
                         this.setState({err: res})
@@ -45,6 +54,7 @@ export class Loginform extends Component {
 
                 }
             )
+
             // axios.post('http://127.0.0.1:5000/api/login', {
             //     email: email,
             //     password: password,

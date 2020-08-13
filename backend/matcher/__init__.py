@@ -19,7 +19,6 @@ app = Flask(__name__)
 
 app.config.from_object(Config) #tells flask to use and apply the config file
 CORS(app)
-JWTManager(app)
 
 db = SQLAlchemy(app) #db object that represents the database.
 ma = Marshmallow(app)
@@ -27,6 +26,7 @@ bcrypt = Bcrypt(app) #password hashing function
 login = LoginManager(app) #initializes the flask-login extension
 migrate = Migrate(app, db) #object that represents the migration engine.
 babel = Babel(app)
+jwt = JWTManager(app)
 
 
 

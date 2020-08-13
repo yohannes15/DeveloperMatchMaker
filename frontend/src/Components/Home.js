@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import {check} from './util/login'
 import './Home.css'
+import {withRouter} from 'react-router-dom'
 
 const alignCenter = {
     textAlign: 'center'
@@ -12,20 +13,58 @@ const marginBottom = {
 }
 
 export class Home extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            allInterests: [],
+            usersStack: [],
+            interests: [],
+        }
+        
+    }
 
     componentDidMount() {
         // check if current user has registered
-        if (check()){
-            Axios.get("http://localhost:5000/api/hasinterests").then(res => {
-                if (res.data.error) {
-                    window.location = '/add_interests'
+            const token = localStorage.getItem("token")
+
+            Axios.all([
+                Axios.get("http://localhost:5000/api/hasinterests", {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                }),
+                Axios.get("http://localhost:5000/api/get_users", {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }  
+            })])
+            .then(Axios.spread((hasInterestsRes, getUsersRes) => {
+                if (hasInterestsRes.data.error) {
+                    console.log(hasInterestsRes.data.error)
+                    this.props.history.push('/add_interests')
                 }
-            })
-        }
+                else if (hasInterestsRes.data.success && !getUsersRes.data.error){
+                    this.setState({
+                        allInterests: getUsersRes.data.all_interests,
+                        usersStack: getUsersRes.data.users_stack,
+                        interests: getUsersRes.data.interests,
+                    })
+                    console.log(getUsersRes.data.all_interests[0][2])
+                    console.log(getUsersRes.data.users_stack[1])
+                    console.log(getUsersRes.data.interests)
+                }
+            }))
+
+
+            
+       
 
     }
 
     render() {
+        console.log(this.state.allInterests)
         return (
             <div>
                 <div className="container">
@@ -36,48 +75,126 @@ export class Home extends Component {
 
                 <div className="container">
                     <div className="grid">
-                        <div style = {marginBottom} className="flip-container">
-                            <div className="flipper">
-                                <div className="front">
-                                    <img className="profile-picture" src="https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-1029171697.jpg" width="250px" height="250px" />
-                                    <div className="profile-devider"></div>
-                                    <h3 className="profile-name">Yohannes Berhane</h3>
-                                        <ul className="tags">
-                                            <div className="programming-lang">
-                                                <li><a href='#'>Python</a></li>
+                        {this.state.usersStack.map((user, index)=> {
+                            return (
+                                <div style = {marginBottom} className="flip-container" key={index}>
+                                    <div className="flipper">
+                                        <div className="front">
+                                            <img class="profile-picture" src="#" width="250px" height="250px" />
+                                            <div className="profile-devider"></div>
+                                            <h3 className="profile-name">{user.firstname} {user.lastname}</h3>
+                                            {this.state.interests.map((interest, index) => {
+                                                if (user.id == interest.user_id){
+                                                    return (
+                                                        <ul className="tags">
+                                                            {this.state.allInterests[0][1].map((proglang, index) => {
+                                                                console.log("prog", proglang)
+                                                                if (proglang[`${this.state.allInterests[0][2]}id`] === interest.fav_programming_lang_id){
+                                                                    return (
+                                                                        <div className="programming-lang">
+                                                                            <li><a href='#'>{proglang[`${this.state.allInterests[0][2]}name`]}</a></li>
+                                                                         </div>
+                                                                    )
+                                                                }
+
+                                                            })}
+
+                                                            {this.state.allInterests[1][1].map((proglang, index) => {
+                                                                if (proglang[`${this.state.allInterests[1][2]}id`] === interest.second_fav_lang_id){
+                                                                    return (
+                                                                        <li><a href='#'>{proglang[`${this.state.allInterests[1][2]}name`]}</a></li>
+                                                                    )
+                                                                }
+
+                                                            })}
+
+                                                            {this.state.allInterests[4][1].map((proglang, index) => {
+                                                                if (proglang[`${this.state.allInterests[4][2]}id`] === interest.experience_id){
+                                                                    return (
+                                                                        <div className="experience-level">
+                                                                            <li><a href='#'>{proglang[`${this.state.allInterests[4][2]}name`]}</a></li>
+                                                                         </div>
+                                                                    )
+                                                                }
+
+                                                            })}
+                                                        </ul>
+
+                                                    )
+                                                }
+                                            })}
+                                        </div>
+
+                                        <div className="back">
+                                            <div className="flip-padding">
+                                                <div>
+                                                {this.state.interests.map((interest, index) => {
+                                                if (user.id == interest.user_id){
+                                                    return (
+                                                        <div>
+                                                            {this.state.allInterests[0][1].map((proglang, index) => {
+                                                                if (proglang[`${this.state.allInterests[0][2]}id`] === interest.fav_programming_lang_id){
+                                                                    return (
+                                                                        <div>
+                                                                            <h5>Primary Language</h5>
+                                                                            <p>{proglang[`${this.state.allInterests[0][2]}name`]}</p>
+                                                                         </div>
+                                                                    )
+                                                                }
+
+                                                            })}
+
+                                                            {this.state.allInterests[1][1].map((proglang, index) => {
+                                                                if (proglang[`${this.state.allInterests[1][2]}id`] === interest.second_fav_lang_id){
+                                                                    return (
+                                                                        <div>
+                                                                            <h5>Secondary Language</h5>
+                                                                            <p>{proglang[`${this.state.allInterests[1][2]}name`]}</p>
+                                                                        </div>
+                                                                    )
+                                                                }
+
+                                                            })}
+
+                                                            {this.state.allInterests[4][1].map((proglang, index) => {
+                                                                if (proglang[`${this.state.allInterests[4][2]}id`] === interest.experience_id ){
+                                                                    return (
+                                                                        <div>
+                                                                            <h5>Years of Experience</h5>
+                                                                            <p>{proglang[`${this.state.allInterests[4][2]}name`]}</p>
+                                                                        </div>
+                                                                    )
+                                                                }
+
+                                                            })}
+
+
+                                                            {this.state.allInterests[2][1].map((proglang, index) => {
+                                                                if (proglang[`${this.state.allInterests[2][2]}id`] === interest.fav_database_system_id){
+                                                                    return (
+                                                                        <div>
+                                                                            <h5>Database System</h5>
+                                                                            <p>{proglang[`${this.state.allInterests[2][2]}name`]}</p>
+                                                                        </div>
+                                                                
+                                                                    )
+                                                                }
+
+                                                            })}
+                                                             <a href="#"><button className="follow-button">Visit Profile</button></a>
+                                                        </div>
+                                                    )
+                                                }
+                                            })}
                                             </div>
-
-                                            <li><a href='#'>Java</a></li>
-
-                                            <div className="field-interest" >
-                                                <li><a href="#">Software Engineering</a></li>
-                                            </div>
-                                        </ul>
-                                </div>
-
-                                <div className="back">
-                                    <div className="flip-padding">
-                                        <div>
-                                            <h5>Primary Langugae</h5>
-                                            <p>Python</p>
-
-                                            <h5>Secondary Language</h5>
-                                            <p>Java</p>
-
-                                            <h5>Years of Experience</h5>
-                                            <p>4</p>
-
-                                            <h5>Database System</h5>
-                                            <p>PostgreSQL</p>
-
-                                            <a href="#"><button className="follow-button">Visit Profile</button></a>
+                                            <div></div>
                                         </div>
                                     </div>
-
+                                    </div>
                                 </div>
 
-                            </div>
-                        </div>
+                            )
+                        })}
 
                     </div>
                 </div>
@@ -88,6 +205,6 @@ export class Home extends Component {
     }
 }
 
-export default Home
+export default withRouter(Home)
 
 
