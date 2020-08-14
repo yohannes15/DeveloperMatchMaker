@@ -5,6 +5,7 @@ import Loginform from './Components/Loginform'
 import RegisterForm from './Components/RegisterForm'
 import InterestForm from './Components/InterestForm'
 import Home from './Components/Home'
+import Profile from './Components/Profile'
 import Logout from './Components/Logout'
 import FrontPage from './Containers/FrontPage'
 import PrivateRoute from './Components/PrivateRoute'
@@ -34,8 +35,9 @@ function App() {
 
             <PrivateRoute exact path='/add_interests/' isLoggedIn={login} component={withRouter(InterestForm)} />
 
-            {/* <PrivateRoute exact path='/:user/' isLoggedIn={login} component={withRouter(""} /> */}
-
+            <Route exact path='/profile/:user/'>
+              {login ? <Profile /> : <FrontPage />}
+            </Route>
 
             <Route exact path='/logout/' component={withRouter(Logout)}/>
 

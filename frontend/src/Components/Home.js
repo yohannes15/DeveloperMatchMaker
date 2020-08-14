@@ -56,15 +56,9 @@ export class Home extends Component {
                     console.log(getUsersRes.data.interests)
                 }
             }))
-
-
-            
-       
-
     }
 
     render() {
-        console.log(this.state.allInterests)
         return (
             <div>
                 <div className="container">
@@ -80,18 +74,17 @@ export class Home extends Component {
                                 <div style = {marginBottom} className="flip-container" key={index}>
                                     <div className="flipper">
                                         <div className="front">
-                                            <img class="profile-picture" src="#" width="250px" height="250px" />
+                                            <img className="profile-picture" src="#" width="250px" height="250px" />
                                             <div className="profile-devider"></div>
                                             <h3 className="profile-name">{user.firstname} {user.lastname}</h3>
                                             {this.state.interests.map((interest, index) => {
                                                 if (user.id == interest.user_id){
                                                     return (
-                                                        <ul className="tags">
+                                                        <ul className="tags" key={index}>
                                                             {this.state.allInterests[0][1].map((proglang, index) => {
-                                                                console.log("prog", proglang)
                                                                 if (proglang[`${this.state.allInterests[0][2]}id`] === interest.fav_programming_lang_id){
                                                                     return (
-                                                                        <div className="programming-lang">
+                                                                        <div className="programming-lang" key={index}>
                                                                             <li><a href='#'>{proglang[`${this.state.allInterests[0][2]}name`]}</a></li>
                                                                          </div>
                                                                     )
@@ -102,7 +95,7 @@ export class Home extends Component {
                                                             {this.state.allInterests[1][1].map((proglang, index) => {
                                                                 if (proglang[`${this.state.allInterests[1][2]}id`] === interest.second_fav_lang_id){
                                                                     return (
-                                                                        <li><a href='#'>{proglang[`${this.state.allInterests[1][2]}name`]}</a></li>
+                                                                        <li key={index}><a href='#'>{proglang[`${this.state.allInterests[1][2]}name`]}</a></li>
                                                                     )
                                                                 }
 
@@ -111,7 +104,7 @@ export class Home extends Component {
                                                             {this.state.allInterests[4][1].map((proglang, index) => {
                                                                 if (proglang[`${this.state.allInterests[4][2]}id`] === interest.experience_id){
                                                                     return (
-                                                                        <div className="experience-level">
+                                                                        <div key={index}className="experience-level">
                                                                             <li><a href='#'>{proglang[`${this.state.allInterests[4][2]}name`]}</a></li>
                                                                          </div>
                                                                     )
@@ -131,11 +124,11 @@ export class Home extends Component {
                                                 {this.state.interests.map((interest, index) => {
                                                 if (user.id == interest.user_id){
                                                     return (
-                                                        <div>
+                                                        <div key ={index}>
                                                             {this.state.allInterests[0][1].map((proglang, index) => {
                                                                 if (proglang[`${this.state.allInterests[0][2]}id`] === interest.fav_programming_lang_id){
                                                                     return (
-                                                                        <div>
+                                                                        <div key={index}>
                                                                             <h5>Primary Language</h5>
                                                                             <p>{proglang[`${this.state.allInterests[0][2]}name`]}</p>
                                                                          </div>
@@ -147,7 +140,7 @@ export class Home extends Component {
                                                             {this.state.allInterests[1][1].map((proglang, index) => {
                                                                 if (proglang[`${this.state.allInterests[1][2]}id`] === interest.second_fav_lang_id){
                                                                     return (
-                                                                        <div>
+                                                                        <div key={index}>
                                                                             <h5>Secondary Language</h5>
                                                                             <p>{proglang[`${this.state.allInterests[1][2]}name`]}</p>
                                                                         </div>
@@ -159,7 +152,7 @@ export class Home extends Component {
                                                             {this.state.allInterests[4][1].map((proglang, index) => {
                                                                 if (proglang[`${this.state.allInterests[4][2]}id`] === interest.experience_id ){
                                                                     return (
-                                                                        <div>
+                                                                        <div key={index}>
                                                                             <h5>Years of Experience</h5>
                                                                             <p>{proglang[`${this.state.allInterests[4][2]}name`]}</p>
                                                                         </div>
@@ -172,7 +165,7 @@ export class Home extends Component {
                                                             {this.state.allInterests[2][1].map((proglang, index) => {
                                                                 if (proglang[`${this.state.allInterests[2][2]}id`] === interest.fav_database_system_id){
                                                                     return (
-                                                                        <div>
+                                                                        <div key={index}>
                                                                             <h5>Database System</h5>
                                                                             <p>{proglang[`${this.state.allInterests[2][2]}name`]}</p>
                                                                         </div>
@@ -181,7 +174,7 @@ export class Home extends Component {
                                                                 }
 
                                                             })}
-                                                             <a href="#"><button className="follow-button">Visit Profile</button></a>
+                                                             <a href={'/profile/' + user.username }><button className="follow-button">Visit Profile</button></a>
                                                         </div>
                                                     )
                                                 }

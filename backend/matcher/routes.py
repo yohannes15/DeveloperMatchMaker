@@ -196,3 +196,55 @@ def get_users():
         })
 
 
+@app.route("/api/get_selected_user/<user>", methods=["GET"])
+@jwt_required
+def get_selected_user(user):
+    user_id = get_jwt_identity()
+    if user_id:
+        selected_user = User.query.filter_by(username=user).first()
+        user = selected_user.username
+        userid = selected_user.id
+
+        user_interests = Interest.query.filter_by(user_id=userid).first()
+
+        user_fav_programming_lang_id = user_interests.fav_programming_lang_id
+        user_second_fav_lang_id = user_interests.second_fav_lang_id
+        user_database_knowledge_id = user_interests.database_knowledge_id
+        user_fav_database_system_id = user_interests.fav_database_system_id
+        user_field_interest_id = user_interests.field_interest_id
+        user_programmer_type_id = user_interests.programmer_type_id
+        user_experience_id= user_interests.experience_id
+
+        fav_lang = FavProgrammingLang.query.filter_by(fav_lang_id=user_fav_programming_lang_id).first()
+        second_fav_lang = SecondFavProgrammingLang.query.filter_by(fav_lang_id=user_second_fav_lang_id).first()
+        database_knowledge = DatabaseKnowledge.query.filter_by(database_knowledge_id=user_database_knowledge_id).first()
+        fav_database_system = FavDatabaseSystem.query.filter_by(fav_database_system_id=user_fav_database_system_id).first()
+        field_interest = FieldInterest.query.filter_by(field_interest_id=user_field_interest_id).first()
+        programmer_type = ProgrammerType.query.filter_by(programmer_type_id=user_programmer_type_id).first()
+        experience = ExperienceLevel.query.filter_by(experience_id=user_experience_id).first()
+
+        selected_interests = []
+        selected_interests.append(fav_lang.fav_lang_name)
+        selected_interests.append(second_fav_lang.fav_lang_name)
+        selected_interests.append(database_knowledge.database_knowledge_name)
+        selected_interests.append(fav_database_system.fav_database_system_name)
+        selected_interests.append(field_interest.field_interest_name)
+        selected_interests.append(programmer_type.programmer_type_name)
+        selected_interests.append(experience.experience_name)
+
+        user_schema = UserSchema()
+        interest_schema = InterestSchema(many=True)
+
+        selected_user = user_schema.dump(selected_user)
+
+        return jsonify({
+            "selected_user": selected_user,
+            "user": user,
+            "selected_interests": selected_interests
+        })
+    else:
+        return jsonify({
+            'error': 'Could not get user interests'
+        })
+
+       
