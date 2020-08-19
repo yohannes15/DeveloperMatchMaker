@@ -2,8 +2,8 @@ import os
 import secrets
 import datetime
 import json
-# from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, current_app, jsonify
+from PIL import Image
+from flask import url_for, flash, redirect, request, current_app, jsonify
 from matcher import app, db, bcrypt, jwt
 # from matcher.forms import RegistrationForm, LoginForm, EditProfileForm, MessageForm
 from matcher.models import *
@@ -165,6 +165,83 @@ def add_interest():
             'error': "ERROR"
         })
 
+@app.route("/api/edit_interests", methods=["PUT"])
+@jwt_required
+def edit_interests():
+    user_id = get_jwt_identity()
+    if user_id and request.method == 'PUT':
+        data = request.json
+        YourFavoriteProgrammingLanguage = data['YourFavoriteProgrammingLanguage']
+        SecondFavouriteProgrammingLanguage = data['SecondFavouriteProgrammingLanguage']
+        ChooseYourSpecialityDatabaseKnowledge = data['ChooseYourSpecialityDatabaseKnowledge']
+        FavoriteDatabaseManagementSystem = data['FavoriteDatabaseManagementSystem']
+        YourFieldOfInterest = data['YourFieldOfInterest']
+        WhichStatementBelowDescribesYouMostAccurately = data['WhichStatementBelowDescribesYouMostAccurately']
+        WhatisYourExperienceLevel = data['WhatisYourExperienceLevel']
+
+        user_interest = Interest.query.filter_by(user_id=user_id).first()
+
+        user_interest.fav_programming_lang_id=YourFavoriteProgrammingLanguage
+        user_interest.second_fav_lang_id=SecondFavouriteProgrammingLanguage
+        user_interest.database_knowledge_id=ChooseYourSpecialityDatabaseKnowledge
+        user_interest.fav_database_system_id=FavoriteDatabaseManagementSystem
+        user_interest.field_interest_id=YourFieldOfInterest
+        user_interest.programmer_type_id=WhichStatementBelowDescribesYouMostAccurately
+        user_interest.experience_id=WhatisYourExperienceLevel
+
+        db.session.commit()
+
+        return jsonify({
+            'success': 'Interests edited'
+        })
+    
+    else:
+        return jsonify({
+            'error': 'Error with user data or user login'
+        })
+
+
+@app.route("/api/edit_profile", methods=["PUT"])
+@jwt_required
+def edit_profile():
+    user_id = get_jwt_identity()
+    if user_id and request.method == 'PUT':
+        current_user = User.query.filter_by(id=user_id).first()
+        if request.files["profilepic"]:
+            picture_file = save_picture(request.files["profilepic"])
+            print("pic",picture_file)
+            current_user.image_file = picture_file
+        
+        current_user.username = request.form["username"]
+        current_user.email = request.form["email"]
+        db.session.commit()
+
+        return jsonify({
+            'success': "profile edited"
+        })
+    
+    else:
+        return jsonify({
+            'error': 'error'
+        })
+
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    print(app.root_path)
+    picture_path = os.path.join('/Users/yohannes/Developer/DeveloperMatchMaker/frontend/public/', 'assets/images', picture_fn)
+
+    output_size = (568, 528)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
+
 
 @app.route("/api/get_users", methods=["GET"])
 @jwt_required
@@ -202,7 +279,6 @@ def get_selected_user(user):
     user_id = get_jwt_identity()
     if user_id:
         selected_user = User.query.filter_by(username=user).first()
-        user = selected_user.username
         userid = selected_user.id
 
         user_interests = Interest.query.filter_by(user_id=userid).first()
@@ -233,13 +309,12 @@ def get_selected_user(user):
         selected_interests.append(experience.experience_name)
 
         user_schema = UserSchema()
-        interest_schema = InterestSchema(many=True)
 
         selected_user = user_schema.dump(selected_user)
 
         return jsonify({
             "selected_user": selected_user,
-            "user": user,
+            "current_user": user_id,
             "selected_interests": selected_interests
         })
     else:
@@ -247,4 +322,109 @@ def get_selected_user(user):
             'error': 'Could not get user interests'
         })
 
-       
+@app.route("/api/get_account_details", methods=["GET"])
+@jwt_required
+def get_account_details():
+    user_id = get_jwt_identity()
+    if user_id:
+        current_user = User.query.filter_by(id=user_id).first()
+        user_interests = Interest.query.filter_by(user_id=user_id).first()
+
+        user_fav_programming_lang_id = user_interests.fav_programming_lang_id
+        user_second_fav_lang_id = user_interests.second_fav_lang_id
+        user_database_knowledge_id = user_interests.database_knowledge_id
+        user_fav_database_system_id = user_interests.fav_database_system_id
+        user_field_interest_id = user_interests.field_interest_id
+        user_programmer_type_id = user_interests.programmer_type_id
+        user_experience_id= user_interests.experience_id
+
+        fav_lang = FavProgrammingLang.query.filter_by(fav_lang_id=user_fav_programming_lang_id).first()
+        second_fav_lang = SecondFavProgrammingLang.query.filter_by(fav_lang_id=user_second_fav_lang_id).first()
+        database_knowledge = DatabaseKnowledge.query.filter_by(database_knowledge_id=user_database_knowledge_id).first()
+        fav_database_system = FavDatabaseSystem.query.filter_by(fav_database_system_id=user_fav_database_system_id).first()
+        field_interest = FieldInterest.query.filter_by(field_interest_id=user_field_interest_id).first()
+        programmer_type = ProgrammerType.query.filter_by(programmer_type_id=user_programmer_type_id).first()
+        experience = ExperienceLevel.query.filter_by(experience_id=user_experience_id).first()
+
+        selected_interests = []
+
+        selected_interests.append(fav_lang.fav_lang_name)
+        selected_interests.append(second_fav_lang.fav_lang_name)
+        selected_interests.append(database_knowledge.database_knowledge_name)
+        selected_interests.append(fav_database_system.fav_database_system_name)
+        selected_interests.append(field_interest.field_interest_name)
+        selected_interests.append(programmer_type.programmer_type_name)
+        selected_interests.append(experience.experience_name)
+
+        user_schema = UserSchema()
+        current_user = user_schema.dump(current_user)
+
+        return jsonify({
+            "selected_interests": selected_interests,
+            "current_user": current_user
+        })
+    else:
+        return jsonify({
+            'error': 'Could not get current user data'
+        })
+
+@app.route("/api/send_message/<user>", methods=["POST"])
+@jwt_required
+def send_message(user):
+    user_id = get_jwt_identity()
+    if user_id:
+        recipient = User.query.filter_by(username=user).first()
+        current_user = User.query.filter_by(id=user_id).first()
+        
+        data = request.json
+        message = data['message']     
+        msg = Message(sender=current_user, recipient=recipient, body=message)
+        db.session.add(msg)
+        recipient.add_notification('unread_message_count', recipient.new_messages())
+        db.session.commit()
+
+        return jsonify({
+            'success': 'sent_message'
+        })
+    else:
+        return jsonify({
+            'error': 'trouble sending message'
+        })
+
+@app.route("/api/messages", methods=["GET"])
+@jwt_required
+def messages():
+    user_id = get_jwt_identity()
+    if user_id:
+        current_user = User.query.filter_by(id=user_id).first()
+        current_user.last_message_read_time = datetime.datetime.utcnow()
+        current_user.add_notification('unread_message_count', 0)
+        db.session.commit()
+        page = request.args.get('page', 1, type=int)
+        messages = current_user.messages_received.order_by(
+            Message.timestamp.desc()).paginate(
+                page, current_app.config['POSTS_PER_PAGE'], False)
+        
+        next_url = url_for('messages', page=messages.next_num) \
+            if messages.has_next else None
+        prev_url = url_for('messages', page=messages.prev_num) \
+            if messages.has_prev else None
+        
+        print("next", next_url)
+        print("prev", prev_url)
+
+        message_schema = MessageSchema(many=True)
+        messages = message_schema.dump(messages.items)
+
+        return jsonify({
+            'next_url': next_url,
+            'prev_url': prev_url,
+            'messages': messages
+        })
+    else:
+        return jsonify({
+            'error': 'trouble rendering messages'
+        })
+
+
+

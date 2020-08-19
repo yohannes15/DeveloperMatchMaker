@@ -9,7 +9,11 @@ import Profile from './Components/Profile'
 import Logout from './Components/Logout'
 import FrontPage from './Containers/FrontPage'
 import PrivateRoute from './Components/PrivateRoute'
-
+import Account from './Components/Account'
+import ProfileForm from './Components/ProfileForm'
+import EditInterestsForm from './Components/EditInterestsForm'
+import SendMessageForm from './Components/SendMessageForm'
+import Messages from './Components/Messages'
 import {check} from './Components/util/login'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {withRouter} from "react-router";
@@ -35,9 +39,30 @@ function App() {
 
             <PrivateRoute exact path='/add_interests/' isLoggedIn={login} component={withRouter(InterestForm)} />
 
+            <Route exact path='/account/' >
+              {login ? <Account /> : <FrontPage />}
+            </Route>
+
+            <Route exact path='/edit_profile/'>
+              {login ? <ProfileForm requestType="put"/> : <FrontPage />}
+            </Route>
+
+            <Route exact path='/edit_interests/'>
+              {login ? <EditInterestsForm /> : <FrontPage/>}
+            </Route>
+
             <Route exact path='/profile/:user/'>
               {login ? <Profile /> : <FrontPage />}
             </Route>
+
+            <Route exact path='/messages/'>
+              {login ? <Messages />: <FrontPage/>}
+            </Route>
+
+            <Route exact path='/send_message/:user/'>
+              {login ? <SendMessageForm /> : <FrontPage />}
+            </Route>
+
 
             <Route exact path='/logout/' component={withRouter(Logout)}/>
 

@@ -154,3 +154,60 @@ article .posts .tile .inner:hover h4 {
 #buttonz:hover {
 	background-color: green;
 }
+
+article .profile-info {
+	display: block;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+article .profile-info h1 {
+	font-size: 2em;
+	font-weight: 600;
+	margin-top: 0.5em;
+}
+
+@media (min-width: 992px) {
+	article .people .round-tile:nth-of-type(2) {
+		transform: translateY(80px) translateX(-20%);
+	}
+
+	article .people .round-tile:nth-of-type(3) {
+		transform: translateY(20px);
+	}
+}
+
+@media (min-width: 1200px) {
+	article .people .round-tile:nth-of-type(2) {
+		transform: translateY(80px) translateX(-40%);
+	}
+}
+
+@media (min-width: 1400px) {
+	article .people .round-tile:nth-of-type(2) {
+		transform: translateY(80px) translateX(-50%);
+	}
+}
+
+@media (max-width: 480px) {
+	.pfl-wrapper {
+		margin: 30px;
+		padding: 40px 0 0;
+	}
+
+	article .profile-info {
+		padding: 0 30px;
+	}
+
+	#nav .nav-icon {
+		top: 10px;
+		left: 10px;
+	}
+
+	#nav .hire-me {
+		top: 5px;
+		right: 10px;
+	}
+}

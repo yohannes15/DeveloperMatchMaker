@@ -9,7 +9,8 @@ export class Profile extends Component {
         super(props)
         this.state = {
             selectedUser : [],
-            selectedInterests: []
+            selectedInterests: [],
+            currentUser: []
         }
     }
 
@@ -30,14 +31,15 @@ export class Profile extends Component {
                 this.setState({
                     selectedUser: res.data.selected_user,
                     selectedInterests: res.data.selected_interests,
+                    currentUser: res.data.current_user
                 })
                 console.log(res.data.selected_user)
-                console.log(res.data.selected_interests)
+                console.log(res.data.current_user)
             }
         })
-
     }
     render() {
+        const {user} = this.props.match.params
         return (
             <div className="pfl-wrapper">
                 <article>
@@ -45,8 +47,8 @@ export class Profile extends Component {
                         <img src="#" width="200" height="130"/>
                     </div>
                     <div className="profile-info">
-                        <h1>selected_user.firstname,selected_user.lastname</h1>
-                        <h5>current_user.email</h5>
+                        <h1>{this.state.selectedUser.firstname}{this.state.selectedUser.lastname}</h1>
+                        <h5>{this.state.selectedUser.email}</h5>
                     </div>
                     <div className="col-xs-12">
                         <div className="col-md-2 people"></div>
@@ -54,50 +56,52 @@ export class Profile extends Component {
                                 <div className="col-xs-12 col-lg-12 col-xl-6 tile">
                                     <div className="inner">
                                         <h4>Primary Programming Languages</h4>
-                                        <h5>selected_interests[0] and elected_interests[1]</h5>
+                                            <h5>{this.state.selectedInterests[0]} and {this.state.selectedInterests[1]}</h5>
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-lg-12 col-xl-6 tile">
                                     <div className="inner">
                                         <h4>Database Knowledge</h4>
-                                        <h5>selected_interests[2]</h5>
+                                        <h5>{this.state.selectedInterests[2]}</h5>
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-lg-12 col-xl-6 tile">
                                     <div className="inner">
                                         <h4>Primary Database Management System</h4>
-                                        <h5>selected_interests[3]</h5>
+                                        <h5>{this.state.selectedInterests[3]}</h5>
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-lg-12 col-xl-6 tile">
                                     <div className="inner">
                                         <h4>Current Field of Interest</h4>
-                                        <h5>selected_interests[4]</h5>
+                                        <h5>{this.state.selectedInterests[4]}</h5>
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-lg-12 col-xl-6 tile">
                                     <div className="inner">
                                         <h4>Experience Level</h4>
-                                        <h5>selected_interests[6]</h5>
+                                        <h5>{this.state.selectedInterests[6]}</h5>
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-lg-12 col-xl-6 tile">
                                     <div className="inner">
                                         <h4>Type of Programmer</h4>
-                                        <h5>selected_interests[5]</h5>
+                                        <h5>{this.state.selectedInterests[5]}</h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
                 </article>
 
+                {this.state.selectedUser.id !== this.state.currentUser ? 
                 <div style={{textAlign: 'center'}}>
-                    <form action="#" method="POST">
-                        <button className="buttonz" name="send_message" type="submit" style={{textAlign: 'center'}}>
+                    <a href={`/send_message/${user}`}>
+                        <button className="buttonz" style={{textAlign: 'center'}}>
                         Send A Quick Message
                         </button>
-                    </form>
+                    </a>
                 </div>
+                : <div></div>}
                 
             </div>
         )
