@@ -400,26 +400,23 @@ def messages():
         current_user.last_message_read_time = datetime.datetime.utcnow()
         current_user.add_notification('unread_message_count', 0)
         db.session.commit()
-        page = request.args.get('page', 1, type=int)
         messages = current_user.messages_received.order_by(
-            Message.timestamp.desc()).paginate(
-                page, current_app.config['POSTS_PER_PAGE'], False)
+            Message.timestamp.desc()).all()
         
-        next_url = url_for('messages', page=messages.next_num) \
-            if messages.has_next else None
-        prev_url = url_for('messages', page=messages.prev_num) \
-            if messages.has_prev else None
-        
-        print("next", next_url)
-        print("prev", prev_url)
+        user_schema = UserSchema(many=True)
 
         message_schema = MessageSchema(many=True)
-        messages = message_schema.dump(messages.items)
+        messages = message_schema.dump(messages)
+
+        users_stack = User.query.filter(User.id != user_id)
+        users_stack = user_schema.dumps(users_stack)
+        users_stack = json.loads(users_stack)
 
         return jsonify({
-            'next_url': next_url,
-            'prev_url': prev_url,
-            'messages': messages
+            # 'next_url': next_url,
+            # 'prev_url': prev_url,
+            'messages': messages,
+            'users_stack': users_stack
         })
     else:
         return jsonify({
@@ -428,3 +425,11 @@ def messages():
 
 
 
+        
+        # next_url = url_for('messages', page=messages.next_num) \
+        #     if messages.has_next else None
+        # prev_url = url_for('messages', page=messages.prev_num) \
+        #     if messages.has_prev else None
+        
+        # print("next", next_url)
+        # print("prev", prev_url)
