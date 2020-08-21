@@ -15,22 +15,18 @@ export class Navbar extends Component {
                         </div>
                         {/* <!-- Navbar Right Side --> */}
                         <div className="navbar-nav">
-                            {/* <a className="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
-                            <a className="nav-item nav-link" href="{{ url_for('messages') }}">Messages
-                                {% set new_messages = current_user.new_messages() %}
-                                <span id="message_count" className="badge"
-                                    style="visibility: {% if new_messages %}visible
-                                                        {% else %}hidden {% endif %};">
-                                    {{ new_messages }}
-                                </span>
-                            </a>
-                            <a className="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a> */}
-
-
-                            {/* {% else %} */}
-                            <a className="nav-item nav-link" href="/login">Login</a>
-                            <a className="nav-item nav-link" href="/register">Register</a>
-                            {/* {% endif %} */}
+                            {this.props.isLoggedIn ?
+                                <>
+                                <a className="nav-item nav-link" href="/account">Account</a>
+                                <a className="nav-item nav-link" href="/messages">Messages</a>
+                                <a class="nav-item nav-link" href="/logout">Logout</a>
+                                </>
+                             :
+                             <>
+                             <a className="nav-item nav-link" href="/">Login</a>
+                             <a className="nav-item nav-link" href="/register">Register</a>
+                             </>
+                            }
                         </div>
                         </div>
                     </div>

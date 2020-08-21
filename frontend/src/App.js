@@ -27,7 +27,7 @@ function App() {
 
     return (
       <div>
-        <Navbar />
+        <Navbar isLoggedIn={login}/>
         <Router >
           
             <Route exact path='/register' render={props =>
