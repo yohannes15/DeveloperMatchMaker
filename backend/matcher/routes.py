@@ -423,13 +423,40 @@ def messages():
             'error': 'trouble rendering messages'
         })
 
+@app.route("/api/notifications", methods=["GET"])
+@jwt_required
+def notifications():
+    user_id = get_jwt_identity()
+    if user_id:
+        since = request.args.get('since', 0.0, type=float)
+        current_user = User.query.filter_by(id=user_id).first()
 
+        notifications = current_user.notifications.filter(
+            Notification.timestamp > since).order_by(Notification.timestamp.asc())
+        
+        for n in notifications:
+            print("hey", n.get_data())
+        
+        notification_schema = NotificationSchema(many=True)
+        notifications = notification_schema.dump(notifications)
 
+        print(notifications)
+
+        new_messages = current_user.new_messages()
+
+        user_schema = UserSchema()
+        current_user = user_schema.dump(current_user)
         
-        # next_url = url_for('messages', page=messages.next_num) \
-        #     if messages.has_next else None
-        # prev_url = url_for('messages', page=messages.prev_num) \
-        #     if messages.has_prev else None
+        print("since", since)
         
-        # print("next", next_url)
-        # print("prev", prev_url)
+        return jsonify({
+            'notifications': notifications,
+            'current_user': current_user,
+            'new_messages': new_messages,
+            'success': True
+        })
+    else:
+        return jsonify({
+            'error': "couldn't render notifcations"
+        })
+        
